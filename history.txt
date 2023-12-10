@@ -45,3 +45,6 @@ sudo
 sudo
 ls
 ls
+lls
+ll
+ls

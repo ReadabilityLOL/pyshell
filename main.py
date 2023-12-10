@@ -14,7 +14,7 @@ Tasks completed:
 - error handling
 - add history command
 - add globbing
-- think of  a good name
+- think of good name
 - add !!
 """
 
@@ -24,8 +24,10 @@ TODO:
 - add tui
 - add zsh-like auto cd
 - add '&' keyword
+  - multiprocessing
 - add more settings
-- capture error codes
+- capture error code
+  - add command to show prev error code
 - add running of files e.g. finnsh thing.finnsh
 - add shellscript that runs the whole thing
 """
