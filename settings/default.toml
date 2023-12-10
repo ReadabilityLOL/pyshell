@@ -1,0 +1,7 @@
+[shell]
+basicColor = "red"
+basicColorAttrs = ["bold"]
+
+[output]
+basicColor = "green"
+basicColorAttrs = ["bold"]

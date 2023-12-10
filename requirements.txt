@@ -1,0 +1,8 @@
+import subprocess
+import tensorflow
+import glob
+import os
+import sys
+
+
+pip instal lolcat
