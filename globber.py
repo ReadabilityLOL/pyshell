@@ -4,7 +4,10 @@ def globber(globInput):
   globbing = ""
   for x in glob.glob(globInput):
     globbing += x + " "
-  return globbing
+  if globbing:
+    return globbing.strip()
+  else: 
+    return globInput
 
 if __name__ == "__main__":
-  print(globber("*"))
+  print(globber("sdfjsdkljfskd"))

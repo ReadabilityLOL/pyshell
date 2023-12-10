@@ -28,6 +28,17 @@ stevedore = ">=0.14.1"
 typing-extensions = "*"
 
 [[package]]
+name = "globber"
+version = "0.2.1"
+description = "Library for string matching with glob patterns"
+optional = false
+python-versions = "*"
+files = [
+    {file = "globber-0.2.1-py3-none-any.whl", hash = "sha256:2d17220096bf50f34134eed81c068d343fe7bd96ed8306fb2a5ac6315070cbe9"},
+    {file = "globber-0.2.1.tar.gz", hash = "sha256:99720aab0939283d5919405b170f07990e47333c9481faa0a14926e62e56ef70"},
+]
+
+[[package]]
 name = "markdown-it-py"
 version = "3.0.0"
 description = "Python port of markdown-it. Markdown parsing, done right!"
@@ -307,4 +318,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10.0,<3.11"
-content-hash = "d50786bdadf85ec3a2fe97779dd26bb06fd0738af835a931270f7dab6ddfb365"
+content-hash = "c3de0f58bd20a418a9393d8d0695e2073e5b741e053c0d6124d31a3d8c58e860"

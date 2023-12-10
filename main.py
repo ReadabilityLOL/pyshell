@@ -1,5 +1,6 @@
 import subprocess
 import glob
+import globber
 import os
 import sys
 from settings.settings import colorShellText, colorOutput
@@ -12,19 +13,20 @@ Tasks completed:
 - prevent Keyboard Interupt
 - error handling
 - add history command
+- add globbing
 - think of  a good name
 """
 
 """
 TODO:
-- add up and down arrows
+- add arrow keys
 - add !!
-- add globbing
-- add gui
+- add tui
 - add zsh-like auto cd
 - add '&' keyword
 - add more settings
 - capture error codes
+- add running of files
 """
 
 home = os.path.expanduser("~")
@@ -38,6 +40,10 @@ def main():
       with open("history.txt","a") as file:
         file.write(cmd+"\n")
       cmd = cmd.split() #split to get arguments
+      cmd2 = []
+      for x in cmd:
+        cmd2.append(globber.globber(x))
+      cmd = cmd2
       
       if len(cmd) == 0:
         continue

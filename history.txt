@@ -23,3 +23,15 @@ bach
 
 
 
+ls
+
+ls
+while
+while true
+while true; do;echo hi;done
+which echo
+ls
+ls ../*
+cd
+cd ..
+cat *.py
