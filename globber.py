@@ -8,6 +8,3 @@ def globber(globInput):
     return globbing.strip()
   else: 
     return globInput
-
-if __name__ == "__main__":
-  print(globber("sdfjsdkljfskd"))
