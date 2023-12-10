@@ -12,6 +12,7 @@ edx-opaque-keys = "^2.5.1"
 toml = "^0.10.2"
 pyping = "^0.0.6"
 piping = "^0.2.1"
+rich = "^13.7.0"
 
 [tool.pyright]
 # https://github.com/microsoft/pyright/blob/main/docs/configuration.md

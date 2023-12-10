@@ -1,16 +1,21 @@
 from textual.app import App
-from textual.widgets import Placeholder
+from textual.widgets import Button, Header, Input, Log
+from rich.style import Style
+from textual.message import Message
+from rich.box import DOUBLE
 
 
-class MainApp(App):
+class MyApp(App):
+  def compose(self):
+    yield Header()
+    yield Input(
+        placeholder="Enter a number...",
+        validators=[],
+    )
+    yield Log()
 
-    async def on_mount(self) -> None:
-        await self.view.dock(Placeholder(name="header"), edge="top", size=3)
-        await self.view.dock(Placeholder(name="footer"), edge="bottom", size=3)
-        await self.view.dock(Placeholder(name="stats"), edge="left", size=40)
-        await self.view.dock(Placeholder(name="message"), edge="right", size=40)
-        await self.view.dock(Placeholder(name="grid"), edge="top")
+  def on_input_changed(self):
+    log = self.query_one(Log)
+    log.write_line("test")
 
-if __name__ == "__main__":
-app = MainApp()
-app.run()
+MyApp().run()
