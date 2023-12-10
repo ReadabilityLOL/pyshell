@@ -35,3 +35,13 @@ ls ../*
 cd
 cd ..
 cat *.py
+
+ls
+ls
+ls
+sudo ls
+sudo
+sudo
+sudo
+ls
+ls

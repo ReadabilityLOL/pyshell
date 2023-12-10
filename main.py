@@ -15,18 +15,19 @@ Tasks completed:
 - add history command
 - add globbing
 - think of  a good name
+- add !!
 """
 
 """
 TODO:
 - add arrow keys
-- add !!
 - add tui
 - add zsh-like auto cd
 - add '&' keyword
 - add more settings
 - capture error codes
-- add running of files
+- add running of files e.g. finnsh thing.finnsh
+- add shellscript that runs the whole thing
 """
 
 home = os.path.expanduser("~")
@@ -37,8 +38,11 @@ def main():
   while True: #the loop
     try:
       cmd = input(f"{colorShellText(os.getcwd())}> ").strip()
+      with open("history.txt","r") as file:
+        prevCommand = file.readlines()[-1]
+      cmd = cmd.replace("!!",prevCommand)
       with open("history.txt","a") as file:
-        file.write(cmd+"\n")
+        file.write("\n"+cmd)
       cmd = cmd.split() #split to get arguments
       cmd2 = []
       for x in cmd:
