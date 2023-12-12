@@ -2,4 +2,4 @@
 poetry.lock
 pyproject.toml
 *.pyc
-history.txt
+../history.txt
