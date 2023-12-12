@@ -1,14 +1,11 @@
-import subprocess
-import globber
-import re
-import os
 import getpass
-import sys
-from settings.settings import *
+import os
+import subprocess
 import threading
-import signal
-import logging
 from shlex import split
+
+import globber
+from settings.settings import *
 
 """
 Tasks completed:
@@ -25,7 +22,6 @@ Tasks completed:
 - fix bug where empty history.txt causes error
   - possibly try-except 
 """
-
 """
 TODO:
 - add the memes
@@ -50,7 +46,7 @@ TODO:
 - add help command
   - should be pretty easy
 - add >, >>, 2>, etc commands *important*
-- add EOF keyword
+- add << operators
 - add / at end of line to wait for newline
 - add () keywords
 - add modularity
@@ -66,7 +62,8 @@ TODO:
 
 home = os.path.expanduser("~")
 commandList = []
-aliases = dict()
+aliases = {}
+
 
 def runCommand(cmd):
   cmd = split(cmd)  #split to get arguments
@@ -80,7 +77,7 @@ def runCommand(cmd):
       with open(f"{home}/history.txt", "r") as file:
         lines = file.read()
       print(lines)  #read and print all lines
-  except:
+  except Exception:  # prob need to make this more specific
     print("History File Empty")
 
   if "cd" in cmd:
@@ -88,22 +85,24 @@ def runCommand(cmd):
       os.chdir(home)  # change to home di
     else:
       os.chdir(cmd[1])
-    
+
   elif cmd[0] == "histclear":
     with open(f"{home}/history.txt", "w") as file:
-      file.truncate(0) #clear file
+      file.truncate(0)  #clear file
 
-  elif "&" in " ".join(cmd) and "&&" not in " ".join(cmd): #this won't work long term
+  elif "&" in " ".join(cmd) and "&&" not in " ".join(cmd):  #this won't work long term
     fullCommand = " ".join(cmd)
     fullCommand = fullCommand.split("&")
-    t1 = threading.Thread(target=runCommand(fullCommand[0]), args=(10, ))
+    t1 = threading.Thread(target=runCommand(fullCommand[0]))
     t1.start()
-  elif "alias" in "".join(cmd) and "=" in "".join(cmd): #also wont work long term, maybe regex later
-    aliased = "".join(cmd).replace("alias","").split("=")[0] #very ugly code
-    alias = "".join(cmd).replace("alias","").split("=")[1]
+    return "t"
+  elif "alias" in "".join(cmd) and "=" in "".join(
+      cmd):  #also wont work long term, maybe regex later
+    aliased = "".join(cmd).replace("alias", "").split("=")[0]  #very ugly code
+    alias = "".join(cmd).replace("alias", "").split("=")[1]
 
     aliases[aliased] = alias
-    
+
   else:
     commandList.append(cmd)
     cmd = " ".join(cmd)
@@ -130,8 +129,8 @@ def main():
           f"{colorShellText(getpass.getuser())}@{colorShellText(os.getcwd())}> "
       ).strip()
       command1 = permanintAlias(command1)
-      for aliased,alias in aliases.items():
-        command1 = command1.replace(aliased,alias) #should work
+      for aliased, alias in aliases.items():
+        command1 = command1.replace(aliased, alias)  #should work
       try:
         with open(f"{home}/history", "r") as file:
           prevCommand = file.readlines()[-1]
@@ -153,11 +152,10 @@ def main():
           runCommand(cmd)
     except KeyboardInterrupt:  #handles keyboardinterrupt
       print()  #adds newline
-  
+
     except Exception as e:
       print(f"finnsh: {e}")  #prints error
-        #TODO: capture error code
-  
+      #TODO: capture error code
 
 if __name__ == "__main__":
   main()

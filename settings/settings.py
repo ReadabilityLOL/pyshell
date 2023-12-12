@@ -1,6 +1,7 @@
 from termcolor import colored, cprint
 import os
 import toml
+from lolpython import lol_py 
 
 home = os.path.expanduser("~")
 
@@ -36,7 +37,7 @@ def colorShellText(command):
 def colorOutput(command):
   try:
     return colored(command, getValue("output", "basicColor"), attrs=getValue("output", "basicColorAttrs"))
-  except:
+  except Exception as e:
     return command
 
 def permanintAlias(command1):
