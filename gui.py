@@ -1,38 +1,56 @@
-from rich.console import Console
-from rich.panel import Panel
-from rich.layout import Layout
-from rich.prompt import Prompt
+import curses
+import subprocess
 
-console = Console()
 
-# Function to display terminal output
-def display_output(output):
-    output_panel = Panel(output, title="Output")
-    layout.update(output_panel)
+def draw_borders(window):
+    window.border('|', '|', '-', '-', '+', '+', '+', '+')
 
-# Initial output for demonstration purposes
-initial_output = "Welcome to the terminal GUI!"
+def main(stdscr):
+    curses.curs_set(0)  # Hide the cursor
+    stdscr.clear()
+    stdscr.refresh()
 
-# Create panels for input and initial output
-input_panel = Panel.fit(Prompt("Enter command: "), title="Input")
-output_panel = Panel(initial_output, title="Output")
+    # Calculate window sizes and positions
+    max_y, max_x = stdscr.getmaxyx()
+    half_x = max_x // 2
+    half_y = max_y // 2
 
-# Create a layout
-layout = Layout()
-layout.split(
-    Layout(name="header", size=1),
-    Layout(name="main", ratio=2),
-    Layout(name="footer", size=1),
-)
-layout["header"].update(Panel("Top Right Panel", title="Top Right"))
+    # Create windows for different sections
+    window1 = curses.newwin(max_y - 4, half_x - 2, 1, 1)
+    window2 = curses.newwin(max_y - 4, half_x - 2, 1, half_x + 1)
+    window3 = curses.newwin(5, max_x - 2, max_y - 6, 1)
+    window4 = curses.newwin(3, max_x - 2, max_y - 3, 1)
 
-# Add panels to the layout
-layout["main"].split_row(input_panel, output_panel)
-layout["footer"].update(Panel("Bottom Bar"))
+    while True:
+        # Clear windows
+        window1.clear()
+        window2.clear()
+        window3.clear()
+        window4.clear()
 
-# Render the layout
-console.print(layout)
+        # Draw borders for windows
+        draw_borders(window1)
+        draw_borders(window2)
+        draw_borders(window3)
+        draw_borders(window4)
 
-# Simulate updating the output when a command is entered
-new_output = "This is the new terminal output!"
-display_output(new_output)
+        window1.addstr(1, 2, "top")
+        window2.addstr(1, 2, "Other Useful Output")
+        window3.addstr(1, 2, "EX:")
+        window3.addstr(2, 2, "After a command is inputted it goes here")
+        window4.addstr(1, 2, "Command Input")
+
+        # Refresh windows
+        window1.refresh()
+        window2.refresh()
+        window3.refresh()
+        window4.refresh()
+
+        # Get user input
+        user_input = window4.getstr(2, 2).decode('utf-8')
+
+        # Exit when 'q' is pressed
+        if user_input.lower() == 'q':
+            break
+
+curses.wrapper(main)
